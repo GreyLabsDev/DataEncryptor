@@ -77,6 +77,7 @@ class DataEncryptorModern : DataEncryptor {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private fun initCipher(mode: Int) {
         try {
             cipher.init(mode, getOrCreateKey(), getGcmSpec())
@@ -94,6 +95,7 @@ class DataEncryptorModern : DataEncryptor {
         return getExistingKey()
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private fun generateKey() {
         keyGenerator.init(getKeyGenParams())
         keyGenerator.generateKey()
@@ -109,6 +111,7 @@ class DataEncryptorModern : DataEncryptor {
         keyStore.deleteEntry(KEY_ALIAS)
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private fun getKeyGenParams(): KeyGenParameterSpec {
         return KeyGenParameterSpec.Builder(KEY_ALIAS, KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
             .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
