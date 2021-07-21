@@ -55,6 +55,7 @@ class DataEncryptorModern : DataEncryptor {
     private val keyStore: KeyStore = KeyStore.getInstance(PROVIDER_ANDROID_KEY_STORE)
     private val keyGenerator: KeyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, PROVIDER_ANDROID_KEY_STORE)
 
+    @Synchronized
     override fun encryptString(src: String): String {
         return try {
             initCipher(Cipher.ENCRYPT_MODE)
@@ -66,6 +67,7 @@ class DataEncryptorModern : DataEncryptor {
         }
     }
 
+    @Synchronized
     override fun decryptString(src: String): String {
         return try {
             initCipher(Cipher.DECRYPT_MODE)
@@ -156,6 +158,7 @@ class DataEncryptorLegacy(
     private val keyStore: KeyStore = KeyStore.getInstance(PROVIDER_ANDROID_KEY_STORE)
     private var cipher: Cipher = Cipher.getInstance(CIPHER_ALGORITHM_LEGACY_RSA, PROVIDER_ANDROID_KEY_STORE)
 
+    @Synchronized
     override fun encryptString(src: String): String {
         getOrCreateSecretKeyLegacy()?.let { key ->
             try {
@@ -171,6 +174,7 @@ class DataEncryptorLegacy(
         return ""
     }
 
+    @Synchronized
     override fun decryptString(src: String): String {
         getOrCreateSecretKeyLegacy()?.let { key ->
             try {
